@@ -5,3 +5,12 @@
 .tickets-list-header {
   padding-bottom: 1rem;
 }
+
+.tickets-list-container-inner {
+    display: flex;
+    flex-wrap: wrap;
+    align-content: center;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 1rem;
+}

@@ -34,11 +34,15 @@ function TicketsList() {
   return (
     <div className="tickets-list-container">
       <h5 className="tickets-list-header">Tickets List</h5>
-      {loading ? (
-        <LoaderComponent />
-      ) : (
-        tickets.map((ticket) => <TicketItem ticket={ticket} />)
-      )}
+      <div className="tickets-list-container-inner">
+        {loading ? (
+          <LoaderComponent />
+        ) : (
+          tickets.map((ticket) => (
+            <TicketItem ticket={ticket} key={ticket.id} />
+          ))
+        )}
+      </div>
     </div>
   );
 }

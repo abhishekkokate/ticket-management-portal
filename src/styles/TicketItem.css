@@ -1,0 +1,49 @@
+.item-container {
+  margin: 0.5rem;
+}
+
+.item-card {
+  position: relative;
+  padding: 1rem;
+  border: 1px solid #808080;
+  border-radius: 10px;
+  box-shadow: 5px 5px 5px #fff2;
+  width: 400px;
+  height: 200px;
+}
+
+.item-id {
+  position: absolute;
+  font-size: 1.25rem;
+  top: 1rem;
+  left: 1rem;
+}
+
+.item-details {
+  margin-top: 2rem;
+  text-align: left;
+  font-size: 1.5rem;
+}
+
+.item-assigned {
+  position: absolute;
+  bottom: 1rem;
+  left: 1rem;
+  font-size: 1rem;
+}
+
+.item-status {
+  position: absolute;
+  bottom: 1rem;
+  right: 1rem;
+  padding: 0.5rem 1rem;
+  border-radius: 10px;
+  font-size: 1rem;
+}
+
+.item-status.done {
+  background: green;
+}
+.item-status.pending {
+  background: red;
+}

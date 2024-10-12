@@ -47,3 +47,18 @@
 .item-status.pending {
   background: red;
 }
+
+.action-btn {
+  display: none;
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+}
+
+.item-card:hover .action-btn {
+  display: block !important;
+}
+
+.btn-edit {
+  right: 2.5rem;
+}

@@ -23,7 +23,7 @@ function TicketsList() {
           return;
         }
         setTickets(data.todos);
-        // setLoading(false);
+        setLoading(false);
       })
       .catch((err) => {
         console.log(err);
@@ -33,7 +33,7 @@ function TicketsList() {
 
   return (
     <div className="tickets-list-container">
-      <h5>Tickets List</h5>
+      <h5 className="tickets-list-header">Tickets List</h5>
       {loading ? (
         <LoaderComponent />
       ) : (

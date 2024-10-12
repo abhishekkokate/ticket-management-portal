@@ -1,14 +1,14 @@
 // import logo from "./logo.svg";
 import "./App.css";
-import TicketsListComponent from "./components/TicketsListComponent";
+import TicketsList from "./components/TicketsList";
 
 function App() {
   return (
     <div className="App App-body">
-      <header class="App-header">
+      <header className="App-header">
         <h3>Ticket Management Portal</h3>
       </header>
-      <TicketsListComponent></TicketsListComponent>
+      <TicketsList />
     </div>
   );
 }

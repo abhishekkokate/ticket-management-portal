@@ -25,6 +25,11 @@
   padding: 1rem;
 }
 
+.App-header {
+  font-style: italic;
+  padding: 2rem;
+}
+
 .App-link {
   color: #61dafb;
 }
@@ -36,4 +41,24 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.loader-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.loader-container .loader .loader-img {
+  animation: rotation 5s linear infinite;
 }

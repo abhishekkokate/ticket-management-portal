@@ -16,6 +16,7 @@ function TicketItem({ ticket }) {
   const performAction = (e, action) => {
     e.preventDefault();
     if (action === "edit") {
+      // To be made
     }
   };
   return (

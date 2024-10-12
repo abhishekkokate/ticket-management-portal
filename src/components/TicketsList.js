@@ -2,14 +2,22 @@ import "../styles/TicketsList.css";
 import React, { useState, useEffect } from "react";
 import LoaderComponent from "./LoaderComponent";
 import TicketItem from "./TicketItem";
+import PaginationComponent from "./PaginationComponent";
 
 function TicketsList() {
-  const [tickets, setTickets] = useState([1, 2, 3, 4]);
+  // States
+  const [totalTickets, setTotalTIckets] = useState(0);
+  const [tickets, setTickets] = useState([]);
   const [loading, setLoading] = useState(true);
   const [pagination, setPagination] = useState({
     limit: 10,
     skip: 0,
   });
+
+  // Functions
+  const updatePagination = ({ skip = 0, limit = 10 }) => {
+    setPagination({ skip, limit });
+  };
 
   useEffect(() => {
     setLoading(true);
@@ -18,10 +26,12 @@ function TicketsList() {
     fetch(`https://dummyjson.com/todos?limit=${limit}&skip=${skip}`)
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
         if (!data.todos || data?.todos?.length === 0) {
+          setTickets([]);
+          setLoading(false);
           return;
         }
+        setTotalTIckets(data.total);
         setTickets(data.todos);
         setLoading(false);
       })
@@ -34,14 +44,20 @@ function TicketsList() {
   return (
     <div className="tickets-list-container">
       <h5 className="tickets-list-header">Tickets List</h5>
+      <PaginationComponent
+        totalCount={totalTickets || 0}
+        skip={pagination?.skip || 0}
+        limit={pagination?.limit || 10}
+        updatePagination={updatePagination}
+      />
       <div className="tickets-list-container-inner">
-        {loading ? (
-          <LoaderComponent />
-        ) : (
+        {loading && <LoaderComponent />}
+        {!loading && !tickets.length && <div> No Data Found! </div>}
+        {!loading &&
+          tickets.length > 0 &&
           tickets.map((ticket) => (
             <TicketItem ticket={ticket} key={ticket.id} />
-          ))
-        )}
+          ))}
       </div>
     </div>
   );

@@ -1,0 +1,32 @@
+.pagination-container {
+  width: 100%;
+  border: 1px solid #fff4;
+  padding: 0.5rem;
+  font-size: 1.25rem;
+  max-width: 1300px;
+  margin: auto;
+  margin-bottom: 1rem;
+}
+
+.pagination-container-inner {
+  margin-left: auto;
+  width: fit-content;
+  margin-right: 1rem;
+}
+
+:is(.page-input, .limit-input) {
+  width: 25px;
+  height: 25px;
+  margin: 0 0.5rem;
+  vertical-align: middle;
+  text-align: center;
+}
+
+.is-big-input {
+  width: 50px;
+}
+
+:is(.page-input, .limit-input)::-webkit-outer-spin-button,
+:is(.page-input, .limit-input)::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}

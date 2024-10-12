@@ -7,10 +7,12 @@
 }
 
 .tickets-list-container-inner {
-    display: flex;
-    flex-wrap: wrap;
-    align-content: center;
-    justify-content: center;
-    align-items: flex-start;
-    gap: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-content: center;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 1rem;
+  max-width: 1300px;
+  margin: auto;
 }

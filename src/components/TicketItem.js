@@ -64,7 +64,7 @@ function TicketItem({ ticket }) {
         </a>
         <div className="item-details">
           <p>
-            <b>Details:</b> {sliceDetailsString(ticket?.todo || "")}
+            <b>Details:</b> {sliceDetailsString(ticket?.title || "")}
           </p>
           <div className="item-assigned">
             <span>

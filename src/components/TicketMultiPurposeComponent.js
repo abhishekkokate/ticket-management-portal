@@ -86,8 +86,8 @@ function TicketMultiPurposeComponent({
         <div className="ticket-inputs ticket-detials">
           <p>Detials:</p>
           <textarea
-            defaultValue={ticket?.todo}
-            onChange={(e) => handleValueChange("todo", e.target.value)}
+            defaultValue={ticket?.title}
+            onChange={(e) => handleValueChange("title", e.target.value)}
             readOnly={mode === "view"}
           />
         </div>

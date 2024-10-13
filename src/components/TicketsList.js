@@ -10,7 +10,7 @@ function TicketsList() {
   const [tickets, setTickets] = useState([]);
   const [loading, setLoading] = useState(true);
   const [pagination, setPagination] = useState({
-    limit: 10,
+    limit: 1,
     skip: 0,
   });
 
@@ -23,16 +23,18 @@ function TicketsList() {
     setLoading(true);
     const skip = pagination?.skip || 0;
     const limit = pagination?.limit || 10;
-    fetch(`https://dummyjson.com/todos?limit=${limit}&skip=${skip}`)
+    fetch(
+      `https://jsonplaceholder.typicode.com/todos?limit=${limit}&skip=${skip}`
+    )
       .then((response) => response.json())
       .then((data) => {
-        if (!data.todos || data?.todos?.length === 0) {
+        if (!data || data.length <= 0) {
           setTickets([]);
           setLoading(false);
           return;
         }
         setTotalTIckets(data.total);
-        setTickets(data.todos);
+        setTickets(data);
         setLoading(false);
       })
       .catch((err) => {

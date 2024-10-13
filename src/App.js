@@ -1,5 +1,7 @@
 import { ReactComponent as Logo } from "./logo.svg";
 import "./App.css";
+import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer } from "react-toastify";
 import TicketsList from "./components/TicketsList";
 
 function App() {
@@ -11,6 +13,18 @@ function App() {
         </h3>
       </header>
       <TicketsList />
+      <ToastContainer
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="colored"
+      />
     </div>
   );
 }

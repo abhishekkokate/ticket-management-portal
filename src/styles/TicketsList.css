@@ -1,5 +1,6 @@
 .tickets-list-container {
   padding: 1rem;
+  max-width: 100%;
 }
 
 .tickets-list-header {

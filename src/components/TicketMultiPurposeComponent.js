@@ -4,13 +4,19 @@ import { ReactComponent as CloseIcon } from "../assets/xmark-solid.svg";
 import { toast } from "react-toastify";
 
 function TicketMultiPurposeComponent({
-  ticket,
+  ticket = {},
   mode = "view",
   updateModal = () => {
     console.error("No updateModal function provided");
   },
 }) {
   const [ticketDetails, setTicketDetails] = useState(ticket);
+
+  const modeMap = {
+    view: "View",
+    edit: "Edit",
+    add: "Add",
+  };
 
   const handleValueChange = (field, value) => {
     if (field === "completed") {
@@ -39,18 +45,22 @@ function TicketMultiPurposeComponent({
       return;
     }
 
+    if (mode === "add" && typeof payloadToSend?.completed !== "boolean") {
+      payloadToSend.completed = false;
+    }
+
     if (mode === "edit") {
       url = `https://jsonplaceholder.typicode.com/todos/${ticket?.id}`;
     } else {
-      url = "https://jsonplaceholder.typicode.com/todos/add";
+      url = "https://jsonplaceholder.typicode.com/todos";
     }
     toast.promise(
       fetch(url, {
-        method: "PUT",
+        method: mode === "edit" ? "PATCH" : "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(ticketDetails),
+        body: JSON.stringify(payloadToSend),
       })
         .then((response) => response.json())
         .then((data) => {
@@ -78,7 +88,7 @@ function TicketMultiPurposeComponent({
         onClick={(e) => e.stopPropagation()}
       >
         <div className="page-title">
-          <h3>{mode === "edit" ? "Edit" : "View"} Ticket</h3>
+          <h3>{modeMap[mode]} Ticket</h3>
           <CloseIcon
             className="icon btn-close"
             onClick={() => updateModal(null, "close")}
@@ -87,6 +97,7 @@ function TicketMultiPurposeComponent({
         <div
           className="ticket-inputs ticket-id"
           title={mode !== "edit" ? "Id cannot be edited" : "Id of the ticket"}
+          style={{ display: mode === "add" ? "none" : "" }}
         >
           <p>Id:</p>
           <input type="text" defaultValue={ticket?.id} readOnly />

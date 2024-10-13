@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import "../styles/PaginationComponent.css";
+import TicketMultiPurposeComponent from "./TicketMultiPurposeComponent";
 
 function PaginationComponent({
   totalCount = 0,
@@ -7,6 +8,7 @@ function PaginationComponent({
   limit = 10,
   updatePagination,
 }) {
+  const [showAddModal, setShowAddModal] = useState(false);
   const updateLimit = (e) => {
     const value = e?.target?.value || 10;
     updatePagination({ limit: value });
@@ -17,8 +19,23 @@ function PaginationComponent({
       updatePagination({ skip: (value - 1) * limit });
     }
   };
+  const performAction = (e, action) => {
+    if (e) {
+      e.preventDefault();
+    }
+    if (action === "close") {
+      action = false;
+    }
+    setShowAddModal(action);
+  };
   return (
     <div className="pagination-container">
+      <button className="btn btn-new" onClick={(e) => performAction(e, "add")}>
+        New +
+      </button>
+      {showAddModal && (
+        <TicketMultiPurposeComponent mode={"add"} updateModal={performAction} />
+      )}
       <div className="pagination-container-inner">
         Showing
         <select

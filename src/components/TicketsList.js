@@ -3,14 +3,15 @@ import React, { useState, useEffect } from "react";
 import LoaderComponent from "./LoaderComponent";
 import TicketItem from "./TicketItem";
 import PaginationComponent from "./PaginationComponent";
+import { toast } from "react-toastify";
 
 function TicketsList() {
   // States
-  const [totalTickets, setTotalTIckets] = useState(0);
   const [tickets, setTickets] = useState([]);
+  const [totalTickets, setTotalTIckets] = useState(0);
   const [loading, setLoading] = useState(true);
   const [pagination, setPagination] = useState({
-    limit: 1,
+    limit: 10,
     skip: 0,
   });
 
@@ -33,12 +34,16 @@ function TicketsList() {
           setLoading(false);
           return;
         }
-        setTotalTIckets(data.total);
-        setTickets(data);
+        // NOTE: This api doesnt support pagination hence we have to handle it manually with the below code
+        const dataToStore = data.slice(skip, limit);
+
+        setTotalTIckets(data.length);
+        setTickets(dataToStore);
         setLoading(false);
       })
       .catch((err) => {
         console.log(err);
+        toast.error("Something went wrong");
         setLoading(false);
       });
   }, [pagination]);
@@ -58,7 +63,10 @@ function TicketsList() {
         {!loading &&
           tickets.length > 0 &&
           tickets.map((ticket) => (
-            <TicketItem ticket={ticket} key={ticket.id} />
+            <TicketItem
+              ticket={ticket}
+              key={ticket.id}
+            />
           ))}
       </div>
     </div>

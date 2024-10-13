@@ -35,7 +35,7 @@ function TicketMultiPurposeComponent({
     }
 
     if (Object.keys(payloadToSend).length === 0) {
-      alert("No changes to save");
+      toast.error("No changes to save");
       return;
     }
 
@@ -44,21 +44,29 @@ function TicketMultiPurposeComponent({
     } else {
       url = "https://jsonplaceholder.typicode.com/todos/add";
     }
-    fetch(url, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(ticketDetails),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log("Success:", data);
+    toast.promise(
+      fetch(url, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(ticketDetails),
       })
-      .catch((error) => {
-        console.error("Error:", error);
-        toast.error(error?.message || "Something went wrong");
-      });
+        .then((response) => response.json())
+        .then((data) => {
+          alert("updated data is : " + JSON.stringify(data));
+          updateModal(null, "close");
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+          toast.error(error?.message || "Something went wrong");
+        }),
+      {
+        pending: "Saving...",
+        success: "Task Saved",
+        error: "Unexpected error occurred",
+      }
+    );
   };
   return (
     <div

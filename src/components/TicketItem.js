@@ -4,6 +4,7 @@ import { ReactComponent as PencilIcon } from "../assets/pencil-solid.svg";
 import { ReactComponent as DeleteIcon } from "../assets/trash-can-solid.svg";
 import { ReactComponent as OpenIcon } from "../assets/eye-solid.svg";
 import TicketMultiPurposeComponent from "./TicketMultiPurposeComponent";
+import { toast } from "react-toastify";
 
 const sliceDetailsString = (str) => {
   // If the string length is greater than allowed length, then this function will cut the string and add "..." at the end of the string to prevent overflowing or big cards in case of bigger string
@@ -14,7 +15,7 @@ const sliceDetailsString = (str) => {
   return str;
 };
 
-function TicketItem({ ticket }) {
+function TicketItem({ ticket, index, updateTicketAtIndex }) {
   const [modalMode, setModalMode] = useState(false);
   const performAction = (e, action) => {
     if (e) {
@@ -24,6 +25,30 @@ function TicketItem({ ticket }) {
       action = false;
     }
     setModalMode(action);
+  };
+  const deleteTicket = (e, ticketId) => {
+    if (e) {
+      e.preventDefault();
+    }
+    const userResp = window.confirm(
+      "Are you sure you want to delete this ticket?"
+    );
+    if (userResp) {
+      toast.promise(
+        fetch(`https://jsonplaceholder.typicode.com/todos/${ticketId}`, {
+          method: "DELETE",
+        })
+          .then(() => {})
+          .catch((err) => {
+            toast.error(err.message || "Something went wrong");
+          }),
+        {
+          pending: "Deleting ticket...",
+          success: "Ticket deleted successfully",
+          error: "Error deleting ticket",
+        }
+      );
+    }
   };
   return (
     <div className="item-container">
@@ -57,7 +82,7 @@ function TicketItem({ ticket }) {
         <a
           href="/"
           className="action-btn btn-delete icon"
-          onClick={(e) => performAction(e, "edit")}
+          onClick={(e) => deleteTicket(e, ticket?.id)}
           title="Delete"
         >
           <DeleteIcon />
